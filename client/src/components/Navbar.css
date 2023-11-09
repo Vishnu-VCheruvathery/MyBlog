@@ -1,0 +1,19 @@
+.nav{
+    color: white;
+    font-size: large;
+    text-decoration: none;
+    
+}
+
+.hidden{
+    display: none;
+}
+
+@media screen and (max-width: 768px){
+    .nav{
+        color: black;
+        width: 100%;
+        border-bottom: 1px solid gray;
+        text-align: center;
+    }
+}

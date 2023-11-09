@@ -1,0 +1,12 @@
+.home{
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.spinner{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+}

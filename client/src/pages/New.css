@@ -1,0 +1,50 @@
+.ql-container {
+    background-color: white;
+    min-height: 300px;
+}
+
+.ql-toolbar{
+    background-color: rgb(170, 166, 166);
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.main{
+    margin: 30px auto;
+    width: 50%;
+    overflow-y: auto;
+}
+
+.title{
+    width: 100%;
+    font-size: large;
+    padding: 5px;
+}
+
+.labels {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.labels label{
+    font-size: 1.7em;
+    font-family: 'Playfair Display', serif;
+    color: rgb(10, 10, 10);
+    /* margin-left: 35%; */
+}
+
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .main{
+        width: 80%;
+    }
+}
