@@ -41,19 +41,26 @@ const Update = () => {
     receivedObj = JSON.parse(decodeURIComponent(serializedObj));
   }
 
+  const handleImage = (e) => {
+    const file  =  e.target.files[0]
+    setFileToBase(file)
+    console.log(file)
+   }
 
+   const setFileToBase = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setImage(reader.result)
+    }
+   }
 
   const update = async ({id, token}) => {
     try {
       if(username === receivedObj.Author.username){
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("content", content);
-        formData.append("image", image);
-
         const response = await axios.put(
           `http://localhost:3001/blogs/edit/${id}`,
-          formData,
+          {title, content, image},
           { headers: { Authorization: `Bearer ${token}` } }
         );
         console.log(id)
@@ -70,11 +77,10 @@ const Update = () => {
  
   useEffect(() => {
     if (receivedObj) {
-      setImage(receivedObj.image || ''); // Set default value to an empty string if imageUrl is not available
       setTitle(receivedObj.title || ''); // Set default value to an empty string if title is not available
       setContent(receivedObj.content || ''); // Set default value to an empty string if content is not available
     }
-  }, [serializedObj]);
+  }, [ serializedObj]);
 
   return (
     <div className="main">
@@ -84,7 +90,7 @@ const Update = () => {
       <VisuallyHiddenInput 
       type="file" 
       accept='.jpeg, .png, .jpg'
-      onChange={(e) => setImage(e.target.files[0])}
+      onChange={handleImage}
       />
     </Button>
       <div className="labels">

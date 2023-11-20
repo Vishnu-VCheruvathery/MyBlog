@@ -25,7 +25,7 @@ const ExpandMore = styled((props) => {
 }));
 
 const Blogs = ({blog}) => {
-  const [imageCover, setImageCover] = useState(null);
+ 
   const [expanded, setExpanded] = useState(false);
   let userID = null
   let username = null
@@ -74,17 +74,6 @@ const Blogs = ({blog}) => {
     setExpanded(!expanded);
   };
 
-  useEffect(() => {
-    // Dynamically import the image when the component mounts
-    import(`../images/${blog.image}` /* @vite-ignore */)
-      .then((image) => {
-        setImageCover(image.default);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [blog.image]);
-
 
   return (
     <>
@@ -101,7 +90,7 @@ const Blogs = ({blog}) => {
       <CardMedia
   component="img"
   height="20%"
-  src={imageCover || '/no-image.jpg'}
+  src={blog.image.url || '/no-image.jpg'}
   onError={(e) => {
     console.error("Image failed to load:", e.target.src);
   }}

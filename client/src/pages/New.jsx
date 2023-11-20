@@ -22,15 +22,29 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 
-const New = ({token}) => {
-  const navigate = useNavigate()
+const New = ({ token }) => {
+  const navigate = useNavigate();
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
-  const [image, setImage] =  useState()
+  const [image, setImage] = useState(null);
   let userID = null;
 
-   if(token){
-     userID = jwtDecode(token).id
+  if (token) {
+    userID = jwtDecode(token).id;
+  }
+
+  const handleImage = (e) => {
+    const file  =  e.target.files[0]
+    setFileToBase(file)
+    console.log(file)
+   }
+
+   const setFileToBase = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setImage(reader.result)
+    }
    }
 
   const Post = async () => {
@@ -39,39 +53,36 @@ const New = ({token}) => {
         toast("You need to be logged in order to post");
         return;
       }
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("content", content);
-      formData.append("image", image);
-      formData.append("Author", userID);
-  
-      const response = await axios.post('http://localhost:3001/blogs', formData, {
+
+      const response = await axios.post('http://localhost:3001/blogs', {title,content,image, userID}, {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data for file uploads
+          'Content-Type': 'application/json'
         },
       });
-  
-      toast.success("Successfully Posted");
-      navigate("/");
+
+      toast.success('Successfully Posted');
+      navigate('/');
       return response.data;
     } catch (err) {
       console.log(err);
     }
   };
+
+ 
+
   return (
-    <div className='main' >
-      <Button 
-      component="label" 
-      variant="contained" 
-      startIcon={<CloudUpload />
-      }
+    <div className="main">
+      <Button
+        component="label"
+        variant="contained"
+        startIcon={<CloudUpload />}
       >
-      Upload file
-      <VisuallyHiddenInput 
+        Upload file
+        <VisuallyHiddenInput 
       type="file"   
       accept='.jpeg, .png, .jpg'
-      onChange={(e) => setImage(e.target.files[0])}
+      onChange={handleImage}
       />
     </Button>
     <div className='labels'>
@@ -98,8 +109,8 @@ const New = ({token}) => {
             >POST</Button>
      </div>
     </div>
-  )
-}
+  );
+};
 
 export default New
 

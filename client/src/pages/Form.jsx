@@ -29,6 +29,7 @@ const Form = () => {
       console.log(error)
     }  
    
+    
    }
 
 
@@ -49,7 +50,7 @@ const Form = () => {
           toast.success(`Welcome ${loggedUser}`);
         } else {
           // Handle invalid token
-          toast.error('Invalid User');
+          toast.error(response.data.error);
         }
       } else {
         // Handle error response

@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -27,22 +27,33 @@ const Save = () => {
 
   useEffect(() => {
     getSavedBlogs({ userID, token }); // Use the correct userID
-  }, [userID, token]); // Update the dependencies
+  }, [userID, token, savedBlogs]); // Update the dependencies
 
   return (
     <div className="home">
     {
-      savedBlogs
+      savedBlogs.length > 0
        ? (
-       
         <Stack flex={2}>
           {savedBlogs.map((blog) => (
             <SavedBlog key={blog._id} blog={blog} />
           ))}
         </Stack>
+      
+     
     
       ) : (
-          <Box>
+        <Box sx={{width: {xs: '45%', md: '30%'},
+        height: '250px', 
+        backgroundColor: 'white', 
+        border: '1px solid gray',
+        margin: '100px auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '0.5em',
+        opacity: '0.7'
+        }}>
            <Typography variant='h6'>
            You have no Saved Blogs!!
            </Typography> 
