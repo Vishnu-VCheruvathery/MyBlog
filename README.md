@@ -1,5 +1,5 @@
 # MyBlog
-Mern-Stack Blog website with JSONwebtoken auth and bcrypt for encryption, Multer for image Upload, react-quill for text-editor
+Mern-Stack Blog website with JSONwebtoken auth and bcrypt for encryption, Cloudinary for image Upload, react-quill for text-editor
 
 #Scripts Client - npm run start
 
